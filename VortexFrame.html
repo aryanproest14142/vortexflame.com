@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VortexFrame | Smart Affiliate Deals</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: radial-gradient(circle at top left, #0b1020 0%, #071026 38%, #02040b 100%);
+    color:white;
+    overflow-x:hidden;
+    position:relative;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: radial-gradient(circle at 20% 20%, rgba(56,189,248,0.18) 0%, transparent 28%),
+                      radial-gradient(circle at 80% 15%, rgba(168,85,247,0.16) 0%, transparent 24%),
+                      radial-gradient(circle at 60% 70%, rgba(16,185,129,0.14) 0%, transparent 22%);
+    pointer-events:none;
+    z-index:-1;
+}
+
+header{
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:1000;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(12px);
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:bold;
+    background:linear-gradient(90deg,#22d3ee,#8b5cf6);
+    -webkit-background-clip:text;
+    color:transparent;
+    text-shadow:0 0 20px rgba(34,211,238,0.4);
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+    align-items:center;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#22d3ee;
+}
+
+.login-btn{
+    display:inline-block;
+    padding:12px 28px;
+    margin-left:16px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+    color:#050816;
+    font-weight:800;
+    box-shadow:0 20px 35px rgba(34,211,238,0.25);
+    transition:transform .25s ease,box-shadow .25s ease,opacity .25s ease;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 28px 45px rgba(34,211,238,0.35);
+    opacity:0.98;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:100px 20px;
+    background:linear-gradient(180deg, rgba(8,19,41,0.8), rgba(4,7,16,0.98));
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    top:-80px;
+    left:-80px;
+    width:280px;
+    height:280px;
+    background:radial-gradient(circle, rgba(34,211,238,0.35), transparent 60%);
+}
+
+.hero::after{
+    content:'';
+    position:absolute;
+    bottom:-90px;
+    right:-90px;
+    width:260px;
+    height:260px;
+    background:radial-gradient(circle, rgba(139,92,246,0.24), transparent 55%);
+}
+
+.hero-content h1{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+.hero-content span{
+    color:#00d4ff;
+}
+
+.hero-content p{
+    max-width:700px;
+    margin:auto;
+    font-size:1.2rem;
+    opacity:0.9;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 35px;
+    background:linear-gradient(90deg,#00d4ff,#8a2be2);
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+}
+
+.products{
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:50px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#141b34;
+    padding:25px;
+    border-radius:20px;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 10px 30px rgba(0,212,255,.25);
+}
+
+.card img{
+    width:100%;
+    border-radius:15px;
+}
+
+.card h3{
+    margin:15px 0;
+}
+
+.card button{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#00d4ff;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.video-frame{
+    width:100%;
+    height:230px;
+    border:0;
+    border-radius:15px;
+}
+
+.videos{
+    padding:80px 8%;
+    background:linear-gradient(180deg, rgba(8,19,41,0.95), rgba(4,7,16,0.98));
+}
+
+.advertisements{
+    padding:80px 8%;
+    background:linear-gradient(180deg, rgba(9,16,34,0.95), rgba(4,7,16,0.98));
+}
+
+.ad-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.ad-card{
+    background:rgba(15,23,42,0.96);
+    padding:24px;
+    border-radius:22px;
+    border:1px solid rgba(34,211,238,0.12);
+    box-shadow:0 18px 45px rgba(0,0,0,0.25);
+    transition:transform .3s ease,box-shadow .3s ease;
+}
+
+.ad-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 26px 55px rgba(0,0,0,0.32);
+}
+
+.ad-card h3{
+    margin-bottom:14px;
+    font-size:1.4rem;
+}
+
+.ad-card p{
+    margin-bottom:18px;
+    line-height:1.6;
+    color:#cbd5e1;
+}
+
+.ad-card a{
+    display:inline-block;
+    padding:12px 24px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#8b5cf6,#22d3ee);
+    color:#050816;
+    font-weight:700;
+    text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.ad-card a:hover{
+    transform:translateY(-2px);
+    box-shadow:0 18px 28px rgba(34,211,238,0.25);
+}
+
+.premium-offer{
+    padding:70px 8%;
+    background:linear-gradient(135deg, rgba(34,211,238,0.12), rgba(139,92,246,0.14));
+}
+
+.premium-card{
+    background:rgba(15,23,42,0.98);
+    border:1px solid rgba(34,211,238,0.18);
+    border-radius:28px;
+    padding:40px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:30px;
+    align-items:center;
+    box-shadow:0 24px 60px rgba(0,0,0,0.22);
+}
+
+.premium-label{
+    display:inline-block;
+    background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+    color:#050816;
+    padding:12px 20px;
+    border-radius:999px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.premium-card h2{
+    font-size:2.4rem;
+    margin-bottom:16px;
+}
+
+.premium-card ul{
+    list-style:none;
+    padding-left:0;
+    margin:0;
+}
+
+.premium-card li{
+    margin-bottom:14px;
+    color:#dbeafe;
+    line-height:1.7;
+}
+
+.premium-price{
+    font-size:4rem;
+    font-weight:800;
+    color:#22d3ee;
+    margin:20px 0 10px;
+}
+
+.premium-save{
+    color:#a5f3fc;
+    font-size:1.05rem;
+    margin-bottom:24px;
+}
+
+.premium-btn{
+    display:inline-block;
+    padding:16px 36px;
+    background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+    border-radius:999px;
+    color:#050816;
+    font-weight:800;
+    text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.premium-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 24px 40px rgba(34,211,238,0.28);
+}
+
+.premium-status{
+    display:inline-block;
+    margin-left:10px;
+    padding:6px 14px;
+    background:#10b981;
+    color:white;
+    border-radius:999px;
+    font-size:0.85rem;
+    font-weight:bold;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%, 100% {
+        opacity:1;
+    }
+    50% {
+        opacity:0.8;
+    }
+}
+
+.card-discount{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:linear-gradient(135deg,#22d3ee,#8b5cf6);
+    color:#050816;
+    padding:8px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    font-size:0.9rem;
+    display:none;
+}
+
+.card.premium-active .card-discount{
+    display:block;
+}
+
+.card{
+    position:relative;
+}
+
+.price-info{
+    margin-top:10px;
+    font-size:0.95rem;
+}
+
+.original-price{
+    text-decoration:line-through;
+    color:#a0aec0;
+    margin-right:8px;
+}
+
+.discount-price{
+    color:#22d3ee;
+    font-weight:bold;
+    font-size:1.1rem;
+    display:none;
+}
+
+.card.premium-active .discount-price{
+    display:inline;
+}
+
+.testimonials{
+    padding:80px 8%;
+    background:#11172b;
+}
+
+.testimonial{
+    background:#18213f;
+    padding:25px;
+    border-radius:15px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#070b16;
+}
+
+.glow{
+    animation:glow 3s infinite alternate;
+}
+
+.click-effect{
+    position:fixed;
+    pointer-events:none;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:rgba(34,211,238,0.35);
+    box-shadow:0 0 20px rgba(56,189,248,0.45);
+    transform:translate(-50%, -50%) scale(0);
+    animation:clickPulse 0.6s ease-out forwards;
+    z-index:10000;
+}
+
+@keyframes clickPulse{
+    to{
+        transform:translate(-50%, -50%) scale(8);
+        opacity:0;
+    }
+}
+
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px #00d4ff;
+    }
+    to{
+        text-shadow:0 0 25px #8a2be2;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<div class="logo">VortexFrame</div>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#products">Products</a></li>
+<li><a href="#reviews">Reviews</a></li>
+</ul>
+<a href="login.html" class="login-btn">Login</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<div class="hero-content">
+<h1 class="glow">Discover The Best <span>Everyday Deals</span></h1>
+<p>
+VortexFrame showcases real consumer products you can buy today — from headphones and smartwatches to gaming consoles.
+Shop verified items from top brands with fast checkout-ready links.
+</p>
+
+<a href="#products" class="btn">Shop Real Products</a>
+</div>
+</section>
+
+<section class="premium-offer" id="premium">
+<div class="premium-card">
+<div>
+<span class="premium-label">Premium Subscription</span>
+<h2 id="premium-title">Get premium benefits for just $20</h2>
+<p id="premium-desc">Join the VortexFrame Premium plan and get <strong>20% OFF every product</strong>, exclusive deals, faster support, and early access to new launches.</p>
+<ul>
+<li>✔ <strong>20% discount on all products</strong></li>
+<li>✔ Access to members-only product drops</li>
+<li>✔ Priority customer support</li>
+<li>✔ Personalized deal recommendations</li>
+<li>✔ Exclusive monthly offers</li>
+<li>✔ Free shipping on orders over $50</li>
+</ul>
+</div>
+<div>
+<div class="premium-price">$20</div>
+<div class="premium-save" id="premium-save-text">Get 20% OFF every purchase</div>
+<button id="premium-toggle-btn" class="premium-btn" onclick="togglePremium()">Activate Premium</button>
+</div>
+</div>
+</section>
+
+<section class="products" id="products">
+<h2 class="section-title">Real Products Available Now</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=800&q=80" alt="Wireless earbuds">
+<h3>Apple AirPods Pro 2</h3>
+<p>Noise-cancelling true wireless earbuds with spatial audio and ANC.</p>
+<div class="price-info">
+<span class="original-price">$249.00</span>
+<span class="discount-price">$199.20</span>
+</div>
+<a class="btn" href="https://www.apple.com/airpods-pro/" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" alt="Smart watch">
+<h3>Samsung Galaxy Watch 6</h3>
+<p>Premium smartwatch with fitness tracking, sleep monitoring, and LTE.</p>
+<div class="price-info">
+<span class="original-price">$399.99</span>
+<span class="discount-price">$319.99</span>
+</div>
+<a class="btn" href="https://www.samsung.com/global/galaxy/galaxy-watch6/" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80" alt="Gaming console">
+<h3>Nintendo Switch OLED</h3>
+<p>Portable gaming console with a vivid OLED screen and Joy-Con controllers.</p>
+<div class="price-info">
+<span class="original-price">$349.99</span>
+<span class="discount-price">$279.99</span>
+</div>
+<a class="btn" href="https://www.nintendo.com/switch/oled-model/" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1580910051070-96b65028e7c5?auto=format&fit=crop&w=800&q=80" alt="Wireless mouse">
+<h3>Logitech MX Master 3</h3>
+<p>Ergonomic wireless mouse with advanced tracking and customizable buttons.</p>
+<div class="price-info">
+<span class="original-price">$99.99</span>
+<span class="discount-price">$79.99</span>
+</div>
+<a class="btn" href="https://www.logitech.com/en-us/products/mice/mx-master-3.html" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1516783349166-66598e54d2d6?auto=format&fit=crop&w=800&q=80" alt="Laptop">
+<h3>Dell XPS 13</h3>
+<p>Compact ultrabook with powerful performance and stunning InfinityEdge display.</p>
+<div class="price-info">
+<span class="original-price">$999.99</span>
+<span class="discount-price">$799.99</span>
+</div>
+<a class="btn" href="https://www.dell.com/en-us/shop/dell-laptops/sr/laptops/xps-laptops" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1585238342028-4f6e3de61698?auto=format&fit=crop&w=800&q=80" alt="Portable speaker">
+<h3>JBL Charge 5</h3>
+<p>Durable waterproof Bluetooth speaker with powerful bass and long battery life.</p>
+<div class="price-info">
+<span class="original-price">$179.99</span>
+<span class="discount-price">$143.99</span>
+</div>
+<a class="btn" href="https://www.jbl.com/bluetooth-speakers/CHARGE+5.html" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1605559424843-9e4c3ca3806d?auto=format&fit=crop&w=800&q=80" alt="Anime Laptop Stickers">
+<h3>Anime Laptop Sticker Pack</h3>
+<p>Premium vinyl sticker pack featuring popular anime characters and designs. Waterproof and fade-resistant.</p>
+<div class="price-info">
+<span class="original-price">$12.99</span>
+<span class="discount-price">$10.39</span>
+</div>
+<a class="btn" href="https://www.amazon.com/anime-stickers-laptop/s?k=anime+laptop+stickers" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1609734238389-c21d4ff1fdf8?auto=format&fit=crop&w=800&q=80" alt="Aesthetic Stickers">
+<h3>Aesthetic Design Stickers</h3>
+<p>Trendy aesthetic and minimalist sticker collection. Perfect for personalizing your laptop and devices.</p>
+<div class="price-info">
+<span class="original-price">$14.99</span>
+<span class="discount-price">$11.99</span>
+</div>
+<a class="btn" href="https://www.amazon.com/aesthetic-stickers-laptop/s?k=aesthetic+laptop+stickers" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1618005182384-a83a8e7b9b79?auto=format&fit=crop&w=800&q=80" alt="Cool Designs Stickers">
+<h3>Cool Designs Sticker Collection</h3>
+<p>Mix of cool, gaming, and pop culture stickers. High-quality vinyl material with excellent durability.</p>
+<div class="price-info">
+<span class="original-price">$16.99</span>
+<span class="discount-price">$13.59</span>
+</div>
+<a class="btn" href="https://www.amazon.com/cool-stickers-laptop/s?k=cool+laptop+stickers" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+<div class="card">
+<div class="card-discount">20% OFF</div>
+<img src="https://images.unsplash.com/photo-1617638924702-92d37f439220?auto=format&fit=crop&w=800&q=80" alt="Custom Sticker Pack">
+<h3>Retro & Vintage Stickers</h3>
+<p>Classic retro and vintage-style stickers with nostalgic designs. Perfect for creative expression and personalization.</p>
+<div class="price-info">
+<span class="original-price">$13.99</span>
+<span class="discount-price">$11.19</span>
+</div>
+<a class="btn" href="https://www.amazon.com/vintage-stickers-laptop/s?k=vintage+laptop+stickers" target="_blank" rel="noreferrer">View Deal</a>
+</div>
+
+</div>
+</section>
+
+<section class="videos" id="videos">
+<h2 class="section-title">Product Videos</h2>
+<div class="grid">
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/QmLh5QQ9WQE" title="Apple AirPods Pro 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>Apple AirPods Pro 2</h3>
+<p>Watch the official AirPods Pro 2 overview and features.</p>
+</div>
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/VjwysIkdQE4" title="Samsung Galaxy Watch 6" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>Samsung Galaxy Watch 6</h3>
+<p>See the latest Galaxy Watch 6 in action with fitness and health features.</p>
+</div>
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/I8e-Ty3fF24" title="Nintendo Switch OLED" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>Nintendo Switch OLED</h3>
+<p>Explore the vibrant new OLED model with gameplay and setup highlights.</p>
+</div>
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/VXJb6k7178I" title="Logitech MX Master 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>Logitech MX Master 3</h3>
+<p>Watch how the MX Master 3 improves productivity and comfort.</p>
+</div>
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/QPm9dIU3pUQ" title="Dell XPS 13" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>Dell XPS 13</h3>
+<p>Learn about the premium XPS 13 laptop design and performance.</p>
+</div>
+<div class="card">
+<iframe class="video-frame" src="https://www.youtube.com/embed/cvlO5KpQw_E" title="JBL Charge 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>JBL Charge 5</h3>
+<p>Hear the JBL Charge 5 sound and see its portable durability.</p>
+</div>
+</div>
+</section>
+
+<section class="advertisements" id="ads">
+<h2 class="section-title">Sponsored Ads</h2>
+<div class="ad-grid">
+<div class="ad-card">
+<h3>Boost Your Home Gym</h3>
+<p>Sponsored: Save on adjustable dumbbells, resistance bands, and smart fitness gear from top wellness brands.</p>
+<a href="https://www.amazon.com/adjustable-dumbbell/s?k=adjustable+dumbbell" target="_blank" rel="noreferrer">Shop Fitness Deals</a>
+</div>
+<div class="ad-card">
+<h3>Upgrade Your Workstation</h3>
+<p>Sponsored: Discover premium office chairs, ergonomic desks, and keyboard bundles for comfort and productivity.</p>
+<a href="https://www.amazon.com/ergonomic-office-chair/s?k=ergonomic+office+chair" target="_blank" rel="noreferrer">View Office Deals</a>
+</div>
+<div class="ad-card">
+<h3>Travel Tech Essentials</h3>
+<p>Sponsored: Find portable chargers, noise-cancelling headphones, and travel-friendly gadgets for your next trip.</p>
+<a href="https://www.amazon.com/travel-tech/s?k=travel+tech" target="_blank" rel="noreferrer">Browse Travel Gear</a>
+</div>
+</div>
+</section>
+
+<section class="testimonials" id="reviews">
+<h2 class="section-title">Customer Reviews</h2>
+
+<div class="grid">
+<div class="testimonial">
+⭐⭐⭐⭐⭐
+<p>"Found amazing discounts through VortexFrame!"</p>
+<br>
+<b>- Sarah</b>
+</div>
+
+<div class="testimonial">
+⭐⭐⭐⭐⭐
+<p>"Clean website and trustworthy recommendations."</p>
+<br>
+<b>- James</b>
+</div>
+
+<div class="testimonial">
+⭐⭐⭐⭐⭐
+<p>"Saved both time and money shopping online."</p>
+<br>
+<b>- David</b>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 VortexFrame. All Rights Reserved.</p>
+</footer>
+
+<script>
+function createClickEffect(x, y){
+    const effect = document.createElement('div');
+    effect.className = 'click-effect';
+    effect.style.left = x + 'px';
+    effect.style.top = y + 'px';
+    document.body.appendChild(effect);
+    setTimeout(() => effect.remove(), 650);
+}
+
+document.addEventListener('click', function(event){
+    createClickEffect(event.clientX, event.clientY);
+});
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href'))
+        .scrollIntoView({
+            behavior:'smooth'
+        });
+    });
+});
+
+// Premium functionality
+function togglePremium(){
+    const isPremium = localStorage.getItem('vortexPremium') === 'true';
+    
+    if(isPremium){
+        // Deactivate premium
+        localStorage.setItem('vortexPremium', 'false');
+    } else {
+        // Activate premium
+        localStorage.setItem('vortexPremium', 'true');
+    }
+    
+    updatePremiumUI();
+}
+
+function updatePremiumUI(){
+    const isPremium = localStorage.getItem('vortexPremium') === 'true';
+    const btn = document.getElementById('premium-toggle-btn');
+    const cards = document.querySelectorAll('.card');
+    const priceTitle = document.getElementById('premium-title');
+    
+    if(isPremium){
+        // Premium is active
+        btn.textContent = 'Cancel Premium';
+        btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+        
+        // Update all product cards
+        cards.forEach(card => {
+            card.classList.add('premium-active');
+        });
+        
+        // Add premium badge to navigation
+        if(!document.getElementById('premium-badge')){
+            const badge = document.createElement('span');
+            badge.id = 'premium-badge';
+            badge.className = 'premium-status';
+            badge.textContent = '👑 PREMIUM ACTIVE';
+            document.querySelector('nav ul').appendChild(badge);
+        }
+        
+        priceTitle.textContent = 'Enjoy 20% OFF everything!';
+        
+    } else {
+        // Premium is inactive
+        btn.textContent = 'Activate Premium';
+        btn.style.background = 'linear-gradient(135deg,#22d3ee,#8b5cf6)';
+        
+        // Remove premium from all product cards
+        cards.forEach(card => {
+            card.classList.remove('premium-active');
+        });
+        
+        // Remove premium badge from navigation
+        const badge = document.getElementById('premium-badge');
+        if(badge) badge.remove();
+        
+        priceTitle.textContent = 'Get premium benefits for just $20';
+    }
+}
+
+// Initialize premium status on page load
+window.addEventListener('load', function(){
+    updatePremiumUI();
+});
+</script>
+
+</body>
+</html>
